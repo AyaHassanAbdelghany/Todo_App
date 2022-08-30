@@ -22,7 +22,10 @@ class AppCubit extends Cubit<AppStates> {
     'Archived Task',
   ];
   Database? db;
-  List<Map> tasks = [];
+  List<Map> newTasks = [];
+  List<Map> doneTasks = [];
+  List<Map> archivedTasks = [];
+
   bool isBottomSheetShow = false;
   IconData fabIcon = Icons.edit;
 
@@ -53,12 +56,9 @@ class AppCubit extends Cubit<AppStates> {
           .catchError((error) {
         print('error when create tables ${error.toString()}');
       });
-    }, onOpen: (database) {
-      getDataFromDB(database).then((value) {
-        tasks = value;
-        emit(AppGetDatabaseState());
-        print(value);
-      });
+    }, onOpen: (database)
+    {
+      getDataFromDB(database);
     }).then((value) {
       db = value;
       emit(AppCreateDatabaseState());
@@ -68,14 +68,11 @@ class AppCubit extends Cubit<AppStates> {
   void insertIntoDB({required TaskModel taskModel}) async {
     await db!.transaction((txn){
       txn.rawInsert(' INSERT INTO tasks (title , date, time ,status) '
-              'VALUES ("${taskModel.title}","${taskModel.date}","${taskModel.time}","New")')
+              'VALUES ("${taskModel.title}","${taskModel.date}","${taskModel.time}","new")')
           .then((value)
       {
         emit(AppInsertDatabaseState());
-       getDataFromDB(db).then((value) {
-         tasks = value;
-         emit(AppGetDatabaseState());
-       });
+       getDataFromDB(db);
       })
           .catchError((error) {
         print('error without insert ${error.toString()}');
@@ -84,7 +81,39 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  Future<List<Map>> getDataFromDB(db) async {
-    return await db!.rawQuery('SELECT * FROM tasks');
+  void getDataFromDB(db)  {
+
+    newTasks = [];
+    doneTasks = [];
+    archivedTasks = [];
+
+    return  db!.rawQuery('SELECT * FROM tasks').then((value)
+    {
+      value.forEach((element){
+        if(element['status'] =='new'){
+          newTasks.add(element);
+        }
+        else if(element['status'] =='done'){
+          doneTasks.add(element);
+        }
+        else {
+          archivedTasks.add(element);
+        }
+      });
+      emit(AppGetDatabaseState());
+    });
+  }
+
+  void updateDataInDB({
+    required String status,
+    required int id,
+  }) {
+    db!.rawUpdate('UPDATE tasks SET status = ? WHERE id = ?',
+        ['${status}', '${id}']).then((value)
+    {
+      emit(AppUpdateDatabaseState());
+      getDataFromDB(db);
+    }
+    );
   }
 }

@@ -38,7 +38,7 @@ Widget defultTextFormField({
   );
 }
 
-Widget defultTaskItem(Map task){
+Widget defultTaskItem(Map task,{VoidCallback? doneOnPressed,VoidCallback? archiveOnPressed}){
   return Padding(
     padding: const EdgeInsets.all(10.0),
     child: Row(
@@ -58,26 +58,46 @@ Widget defultTaskItem(Map task){
         SizedBox(
           width: 20.0,
         ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${task['title']}',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${task['title']}',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            Text(
-              '${task['date']}',
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.grey,
+              Text(
+                '${task['date']}',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.grey,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        SizedBox(
+          width: 20.0,
+        ),
+        IconButton(
+            onPressed: doneOnPressed,
+            icon: Icon(
+              Icons.check_box,
+              color: Colors.green,
+            )
+        ),
+        IconButton(
+            onPressed: archiveOnPressed,
+            icon: Icon(
+              Icons.archive,
+              color: Colors.black54,
+            )
+        ),
+
       ],
     ),
   );
