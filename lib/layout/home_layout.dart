@@ -160,6 +160,7 @@ class HomeLayout extends StatelessWidget {
             onTap: (index) {
               cubit.changeIndex(index);
             },
+            backgroundColor: Colors.grey[300],
           ),
         );
         },
