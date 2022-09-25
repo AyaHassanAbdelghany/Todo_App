@@ -1,16 +1,19 @@
-# todo_app
+# TodoApp
+Cross-platform application built with Flutter.
 
-A new Flutter project.
+# Tools & Libraries
+- Android studio.
+- Dart.
+- sqflite.
+- Bottom Navigation.
+- Flutter bloc pattern.
+-intl.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+# Screenshots
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://user-images.githubusercontent.com/54456549/192145370-70becc66-4868-4af2-98c2-60720ba5fb38.png" height="640" width="288">
+<img src="https://user-images.githubusercontent.com/54456549/192145384-153b61f6-267d-40ae-8aa6-b829a6858d4e.png" height="640" width="288">
+<img src="https://user-images.githubusercontent.com/54456549/192145762-44edaf42-280d-43c2-9fdc-33efff54f0e4.png" height="640" width="288">
+<img src="https://user-images.githubusercontent.com/54456549/192145780-81d00b70-2660-4de4-ba65-6fabb2d735e3.png" height="640" width="288">
+<img src="https://user-images.githubusercontent.com/54456549/192145792-5ed33cd5-842f-4671-a563-f97196635f7d.png" height="640" width="288">
